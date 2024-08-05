@@ -1,8 +1,4 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
--- Customize Mason plugins
-
----@type LazySpec
+-- customize mason plugins
 return {
   -- use mason-lspconfig to configure LSP installations
   {
@@ -11,8 +7,10 @@ return {
     opts = function(_, opts)
       -- add more things to the ensure_installed table protecting against community packs modifying it
       opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {
-        "lua_ls",
-        -- add more arguments for adding more language servers
+        -- "lua_ls",
+        "elixirls",
+        "omnisharp",
+        "eslint",
       })
     end,
   },
@@ -24,20 +22,21 @@ return {
       -- add more things to the ensure_installed table protecting against community packs modifying it
       opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {
         "prettier",
-        "stylua",
-        -- add more arguments for adding more null-ls sources
+        "csharpier",
       })
     end,
   },
   {
     "jay-babu/mason-nvim-dap.nvim",
     -- overrides `require("mason-nvim-dap").setup(...)`
-    opts = function(_, opts)
-      -- add more things to the ensure_installed table protecting against community packs modifying it
-      opts.ensure_installed = require("astrocore").list_insert_unique(opts.ensure_installed, {
-        "python",
-        -- add more arguments for adding more debuggers
-      })
-    end,
+    opts = {
+      ensure_installed = { "netcoredbg" },
+    },
+    -- opts = function(_, opts)
+    --   -- add more things to the ensure_installed table protecting against community packs modifying it
+    --   opts.ensure_installed = require("astronvim.utils").list_insert_unique(opts.ensure_installed, {
+    --     "netcoredbg",
+    --   })
+    -- end,
   },
 }
